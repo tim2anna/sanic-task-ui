@@ -1,0 +1,23 @@
+<nz-layout>
+	<nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+		<div class="logo">
+			<img src="/assets/zorro.svg">
+			<span>Sanic Task</span>
+		</div>
+		<ul nz-menu [nzTheme]="'dark'" [nzMode]="isCollapsed?'vertical':'inline'" *ngFor="let child of menus">
+			<li nz-menu-item [routerLink]="child.link" [nzSelected]="child.selected">
+				<i class="anticon {{ child.icon }}"></i>
+				<span class="nav-text">{{ child.text }}</span>
+			</li>
+		</ul>
+	</nz-sider>
+	<nz-layout>
+		<nz-header style="background: #fff; padding:0;">
+			<i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+		</nz-header>
+		<nz-content style="margin:8px; background: #fff; padding: 10px;">
+			<router-outlet></router-outlet>
+		</nz-content>
+		<nz-footer style="text-align: center;">Ant Design ©2017 Implement By Angular</nz-footer>
+	</nz-layout>
+</nz-layout>

@@ -1,5 +1,5 @@
 .ant-layout {
-    min-height: 100;
+    min-height: 100%;
 }
 
 .logo {
@@ -7,6 +7,23 @@
     background: #333;
     border-radius: 6px;
     margin: 16px;
+    overflow: h;
+}
+.logo img {
+    height: 32px;
+    line-height: 32px;
+    float: left;
+}
+.logo span {
+    height: 32px;
+    line-height: 32px;
+    float: left;
+    color: white;
+    font-size: 18px;
+    margin-left: 10px;
+}
+.ant-layout-sider-collapsed .logo span {
+    display: none;
 }
 
 .ant-layout-sider-collapsed .nav-text {
@@ -32,4 +49,8 @@
 
 .trigger:hover {
     color: #108ee9;
+}
+
+.ant-menu.ant-menu-dark .ant-menu-item-selected:focus {
+    outline: none;
 }

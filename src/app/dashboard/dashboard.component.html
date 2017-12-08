@@ -1,0 +1,116 @@
+<div nz-row [nzGutter]="12" class="status-cards">
+	<div nz-col [nzSpan]="6">
+		<nz-card class="nopadding">
+			<ng-template #title>
+				<i class="anticon anticon-api"></i> Worker
+			</ng-template>
+			<ng-template #body>
+				<div nz-card-grid class="gridStyle" *ngFor="let worker of workerCards">
+					{{ worker.name }}
+					<div [ngSwitch]="worker.status">
+						<nz-tag [nzColor]="'green'" *ngSwitchCase="'WorkerStatus.IDLE'">空闲</nz-tag>
+						<nz-tag [nzColor]="'orange'" *ngSwitchCase="'WorkerStatus.BUSY'">忙碌</nz-tag>
+						<nz-tag [nzColor]="'blue'" *ngSwitchCase="'WorkerStatus.STARTED'">开始</nz-tag>
+					</div>
+				</div>
+			</ng-template>
+		</nz-card>
+	</div>
+	<div nz-col [nzSpan]="6">
+		<nz-card>
+			<ng-template #title>
+				<i class="anticon anticon-heart"></i> Beat
+			</ng-template>
+			<ng-template #body>
+				<nz-alert [nzType]="'error'" [nzMessage]="'未运行'" [nzShowIcon]="'true'"></nz-alert>
+			</ng-template>
+		</nz-card>
+	</div>
+	<div nz-col [nzSpan]="6">
+		<nz-card>
+			<ng-template #title>
+				<i class="anticon anticon-database"></i> Queue
+			</ng-template>
+			<ng-template #body>
+				[ default ]<nz-progress [ngModel]="30" [nzStrokeWidth]="5" [nzFormat]="_formatOne"></nz-progress>
+			</ng-template>
+		</nz-card>
+	</div>
+	<div nz-col [nzSpan]="6">
+		<nz-card>
+			<ng-template #title>
+				<i class="anticon anticon-bulb"></i> Job
+			</ng-template>
+			<ng-template #body>
+				<div style="margin-bottom: 5px;">正在处理：<nz-tag [nzColor]="'#108ee9'">{{ jobNumbers['running'] }}</nz-tag></div>
+				<div style="margin-bottom: 5px;">等待处理：<nz-tag [nzColor]="'#2db7f5'">{{ jobNumbers['enqueue'] }}</nz-tag></div>
+				<div style="margin-bottom: 5px;">处理成功：<nz-tag [nzColor]="'#87d068'">{{ jobNumbers['success'] }}</nz-tag></div>
+				<div style="margin-bottom: 5px;">处理失败：<nz-tag [nzColor]="'#f50'">{{ jobNumbers['failure'] }}</nz-tag></div>
+			</ng-template>
+		</nz-card>
+	</div>
+</div>
+
+<br/>
+
+<div nz-row [nzGutter]="12">
+	<div nz-col [nzSpan]="12">
+		<nz-card>
+			<ng-template #title>
+				<i class="anticon anticon-api"></i> Workers
+			</ng-template>
+			<ng-template #body>
+				
+				<nz-table #nzTable [nzDataSource]="workerTable" [nzPageSize]="10">
+					<thead nz-thead>
+					<tr>
+						<th nz-th>
+							<span>名称</span>
+							<nz-table-sort [(nzValue)]="sortMap.name" (nzValueChange)="sort('name',$event)"></nz-table-sort>
+						</th>
+						<th nz-th>
+							<span>状态</span>
+							<nz-table-sort [(nzValue)]="sortMap.age" (nzValueChange)="sort('age',$event)"></nz-table-sort>
+						</th>
+						<th nz-th>
+							<span>PID</span>
+							<nz-table-sort [(nzValue)]="sortMap.address" (nzValueChange)="sort('address',$event)"></nz-table-sort>
+						</th>
+					</tr>
+					</thead>
+					<tbody nz-tbody>
+					<tr nz-tbody-tr *ngFor="let row of nzTable.data">
+						<td nz-td>
+							<a>{{row.name}}</a>
+						</td>
+						<td nz-td>{{row.status}}</td>
+						<td nz-td>{{row.pid}}</td>
+					</tr>
+					</tbody>
+				</nz-table>
+			</ng-template>
+		</nz-card>
+	</div>
+	<div nz-col [nzSpan]="12">
+		<nz-card>
+			<ng-template #title>
+				<i class="anticon anticon-exception"></i> 最近异常Job
+			</ng-template>
+			<ng-template #body>
+				<nz-timeline>
+					<nz-timeline-item [nzColor]="'red'" *ngFor="let row of recentExceptionJobs">
+						<nz-popover [nzTitle]="'异常'" [nzTrigger]="'click'">
+							<a nz-popover>
+								[{{ row.start_time }}]
+								{{ row.desc }}
+							</a>
+							<ng-template #nzTemplate>
+								<div [innerHTML]="row.exc_info|br"></div>
+							</ng-template>
+						</nz-popover>
+					</nz-timeline-item>
+				</nz-timeline>
+			</ng-template>
+		</nz-card>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+.status-cards .ant-card {
+  height: 200px;
+}
+
+.value-block {
+  height: 32px;
+  vertical-align: middle;
+  border-radius: 6px;
+  background: #999;
+  display: inline-block;
+  line-height: 22px;
+  padding: 5px 10px;
+  color: white;
+}
+
+:host ::ng-deep .nopadding .ant-card-body {
+  padding: 0;
+  overflow-y: scroll;
+  height: 150px;
+}
+
+.gridStyle {
+  width: 50%;
+  padding: 8px;
+  text-align: center;
+}
+
