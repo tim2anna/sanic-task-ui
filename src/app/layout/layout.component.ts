@@ -38,9 +38,10 @@ export class LayoutComponent implements OnInit {
 
   constructor(router: Router) {
     router.events.subscribe(evt => {
-      if (!this.isFetching && evt instanceof RouteConfigLoadStart)
+      if (!this.isFetching && evt instanceof RouteConfigLoadStart) {
         this.isFetching = true;
-      if (!(evt instanceof NavigationEnd)) return;
+      }
+      if (!(evt instanceof NavigationEnd)) { return; }
       setTimeout(() => {
         this.isFetching = false;
       }, 100);
@@ -51,7 +52,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {}
 
   setSelected(url: string) {
-    if (!url) return;
+    if (!url) { return; }
     this.menus.forEach((child) => {
       child.selected = false;
       if (url === child.link) {

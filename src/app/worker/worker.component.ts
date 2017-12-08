@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 
 @Component({
@@ -8,7 +8,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
   templateUrl: './worker.component.html',
   styleUrls: ['./worker.component.css'],
 })
-export class WorkerComponent {
+export class WorkerComponent  implements OnInit {
   _current = 1;
   _pageSize = 10;
   _total = 1;
@@ -31,7 +31,7 @@ export class WorkerComponent {
       this._total = data['total'];
       this._dataSet = data['results'];
     });
-  };
+  }
 
   ngOnInit() {
     this.refreshData();
