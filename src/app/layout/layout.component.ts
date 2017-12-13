@@ -9,6 +9,8 @@ import { Router, NavigationEnd, RouteConfigLoadStart } from '@angular/router';
 
 export class LayoutComponent implements OnInit {
   isFetching = false;
+  isCollapsed = false;
+
   menus: any[] = [
     {
       'text': 'Dashboard',

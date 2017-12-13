@@ -16,10 +16,19 @@ import { JobComponent } from './job/job.component';
 
 import { BrPipe } from './custom.filter';
 import { MockInterceptor } from './mock.interceptor';
-import './mock.interceptor'
+import './mock.interceptor';
 import { environment } from '../environments/environment';
 
+const providers = [];
 console.dir(environment);
+
+if (environment['production'] === false) {
+  providers.push({
+    provide: HTTP_INTERCEPTORS,
+    useClass: MockInterceptor,
+    multi: true,
+  });
+}
 
 @NgModule({
   declarations: [
@@ -43,11 +52,7 @@ console.dir(environment);
     NgZorroAntdModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: MockInterceptor,
-    multi: true,
-  }],
+  providers: providers,
   bootstrap: [AppComponent]
 })
 export class AppModule { }
